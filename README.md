@@ -6,7 +6,7 @@ Os dois grupos procuraram mas não conseguiram fazer PN532 comunicar-se com ESP3
 
 ## Método
 
-Busquei na internet por referências, o histórico e as anotações que fiz durante a exploração estão anotados em Diário. Usei algumas horas por dia entre 04 e 09 de março.
+Busquei na internet por referências, o histórico e as anotações que fiz durante a exploração estão anotados em https://github.com/FNakano/nfc-tester?tab=readme-ov-file#di%C3%A1rio. Usei algumas horas por dia entre 04 e 09 de março.
 
 A solução foi clonar o projeto https://github.com/somervda/nfc-tester , ajustar as configurações à medida que os erros fossem aparecendo e, ao final, ver se o programa executava e dava sinais de conseguir ler o cartão. Importante destacar:
 
