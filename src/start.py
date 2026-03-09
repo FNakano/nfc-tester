@@ -26,7 +26,7 @@ NDEF_PAYLOAD_TYPE_URI = const(0x55)
 
 
 # Set up I2C buss and scan for devices
-i2c = machine.I2C(1, scl=machine.Pin(22), sda=machine.Pin(21))
+i2c = machine.I2C(0, scl=machine.Pin(6), sda=machine.Pin(5)) # FN
 devices = i2c.scan()
 if len(devices) == 0:
     print("No i2c device !")
@@ -36,9 +36,10 @@ else:
         print("Decimal address: ", device, " | Hex address: ", hex(device))
 
 # Defaults to i2c address 3C in SSD1306 library
-pin = machine.Pin(16, machine.Pin.OUT)
-pin.value(0)  # set GPIO16 low to reset OLED
-pin.value(1)  # while OLED is running, must set GPIO16 in high
+# pin = machine.Pin(16, machine.Pin.OUT)
+# pin.value(0)  # set GPIO16 low to reset OLED
+# pin.value(1)  # while OLED is running, must set GPIO16 in high
+
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
 oled.text('RFID/NFC tag reader', 0, 0)
@@ -46,8 +47,8 @@ oled.text('Starting....', 0, 10)
 oled.show()
 
 # Try running pn532 RFID code
-#  Initalize the PN532 object, use the GPIO pin(5) to reset the PN532 on each run
-pn532 = pn532_i2c.PN532_I2C(i2c, debug=False, reset=5)
+#  Initalize the PN532 object, use the GPIO pin(2) to reset the PN532 on each run
+pn532 = pn532_i2c.PN532_I2C(i2c, debug=False, reset=2)
 ic, ver, rev, support = pn532.get_firmware_version()
 print("Found PN532 with firmware version: {0}.{1}".format(ver, rev))
 # Set up configuration for MiFare type cards
@@ -59,7 +60,7 @@ sta_if = network.WLAN(network.STA_IF)
 if not sta_if.isconnected():
     print('connecting to guest network...')
     sta_if.active(True)
-    sta_if.connect('guest24', 'backyard')
+    sta_if.connect('lab8', 'lab8arduino')
     while not sta_if.isconnected():
         time.sleep_ms(500)
         print("*", end="")
